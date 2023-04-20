@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block content %}
+<form action="/result" method="POST" enctype="multipart/form-data">
+         <div class="main-container">
+            <div class="container">
+               <h3>Input Images</h3>
+               <br />
+               <input
+                  type="file"
+                  id="file-input-multiple"
+                  name="multi-file-inp"
+                  accept="image/png, image/jpeg"
+                  onchange="multiplePreview()"
+                  multiple
+               />
+               <label for="file-input-multiple">
+                  <i class="fas fa-upload"></i> &nbsp; Choose a set of input images
+               </label>
+               <p id="num-of-files">No Files Chosen</p>
+               <div id="images"></div>
+            </div>
+            <div class="container">
+               <h3>Image to compare</h3>
+               <br />
+               <input
+                  type="file"
+                  id="file-input-single"
+                  name="single-file-inp"
+                  accept="image/png, image/jpeg"
+                  onchange="singlePreview()"
+               />
+               <label for="file-input-single">
+                  <i class="fas fa-upload"></i> &nbsp; Choose an image to compare
+               </label>
+               <br>
+               <div id="images-single"></div>
+            </div>
+            <input type="submit" value="Upload" class="submit-btn">
+         </div>
+      </form>
+{% endblock %}
