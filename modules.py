@@ -1,6 +1,5 @@
 import cv2
 import os
-from skimage.metrics import structural_similarity 
 import cv2
 
 UPLOAD_FOLDER = 'static/images/'
