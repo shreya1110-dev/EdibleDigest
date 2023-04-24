@@ -1,5 +1,7 @@
 import cv2
 import os
+from skimage.metrics import structural_similarity 
+import cv2
 
 UPLOAD_FOLDER = 'static/images/'
 
@@ -69,22 +71,39 @@ def grayscale_images(images):
     grayscale.append(image_grayscale)
   return grayscale
 
-def compute_hash(grayscale_images):
+def compute_hash(images):
   hashes = []
-  for img in grayscale_images:
+  for img in grayscale_images(images):
     hashes.append(bintohexa(int(dhash(img))))
   return hashes
-
-def calculate_hashes(images, file):
-    gs_images = grayscale_images(images)
-    hashes = compute_hash(gs_images)
-    gs_image = grayscale_images([file])
-    print(images)
-    if file in images:
-       print("true",file)
-       return 0
-    hashes.append(compute_hash(gs_image)[0])
-    for file in os.listdir(UPLOAD_FOLDER):
-       os.remove(UPLOAD_FOLDER+file)
-    return hashes
  
+def orb_sim(images, file):
+    f = grayscale_images([file])[0]
+    gs_images = grayscale_images(images)
+    max_similarity_val = -1
+    max_similarity_img = -1
+    for i in range (0,len(gs_images)):
+      orb = cv2.ORB_create()
+
+      # detect keypoints and descriptors
+      kp_a, desc_a = orb.detectAndCompute(gs_images[i], None)
+      kp_b, desc_b = orb.detectAndCompute(f, None)
+
+      # define the bruteforce matcher object
+      bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+      #perform matches. 
+      matches = bf.match(desc_a, desc_b)
+      #Look for similar regions with distance < 60. .
+      matches = sorted(matches, key = lambda x:x.distance)    
+      similar_regions = [i for i in matches if i.distance < 60]  
+      if len(matches)==0:
+         return -1
+      similarity = len(similar_regions) / len(matches)
+      if similarity>=max_similarity_val:
+        max_similarity_val = similarity
+        max_similarity_img = i
+    return {
+          "Image":max_similarity_img,
+          "Value":max_similarity_val
+        }

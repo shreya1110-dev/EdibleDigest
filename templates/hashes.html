@@ -1,6 +1,33 @@
-{% extends "base.html" %} 
-{% block content %}
-<div class="result-container">
-    {{ result|safe }}
+{% extends "base.html" %} {% block content %}
+<div class="result-container centering">
+    {% if empty%}
+    <h1>{{ empty }}</h1>
+    {% else %}
+   <table class="table table-hover result-table">
+      <tbody>
+         {% if type!='.tif' %}
+         <tr>
+            <td>Image Preview</td>
+            <td>
+               <img class="result-image" src="{{ image }}" align="middle" />
+            </td>
+         </tr>
+         {% else %}
+         <tr>
+            <td>Image Preview</td>
+            <td>No preview available.</td>
+         </tr>
+         {% endif %}
+         <tr class="similarity">
+            <td>Image Name</td>
+            <td>{{ image_name }}</td>
+         </tr>
+         <tr class="similarity">
+            <td>Image Similarity</td>
+            <td>{{ similarity }}</td>
+         </tr>
+      </tbody>
+   </table>
+   {% endif %}
 </div>
 {% endblock %}

@@ -96,3 +96,23 @@ figcaption{
    margin-top: 5%;
    text-align: center;
 }
+
+.result-image {
+   width: 80%;
+   height: 80%;
+}
+
+.result-table td {
+   width: 30%;
+}
+
+.similarity {
+   height: 50px;
+}
+
+.result-table {
+   width: 60%;
+   margin: auto;
+   text-align: center;
+   border: 1px solid black;
+}
