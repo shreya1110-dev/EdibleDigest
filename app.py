@@ -27,11 +27,7 @@ def result():
         modules.add_image_paths_from_directory(modules.UPLOAD_FOLDER)
         orb_result = modules.orb_sim(images, modules.UPLOAD_FOLDER+single_file[0].filename)
         if(orb_result != -1):
-            result = modules.compute_hash([images[orb_result["Image"]], modules.UPLOAD_FOLDER+single_file[0].filename])
-            if(result == 0):
-                return render_template("hashes.html", result="The image to be compared belongs to the database!!", title="Results")
-            else:
-                return render_template("hashes.html", image_name=images[orb_result['Image']].split('/')[-1], image=images[orb_result['Image']], similarity=orb_result['Value'], title="Results", type=pathlib.Path(images[orb_result['Image']]).suffix)
+            return render_template("hashes.html", image_name=images[orb_result['Image']].split('/')[-1], image=images[orb_result['Image']], similarity=orb_result['Value'], title="Results", type=pathlib.Path(images[orb_result['Image']]).suffix)
 
 if __name__ =='__main__':  
     app.run(debug = True)
