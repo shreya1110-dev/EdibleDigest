@@ -3,6 +3,8 @@
     {% if empty%}
     <h1>{{ empty }}</h1>
     {% else %}
+    <h1>Similarity Score</h1>
+    <br><br>
    <table class="table table-hover result-table">
       <tbody>
          {% if type!='.tif' %}
@@ -14,16 +16,16 @@
          </tr>
          {% else %}
          <tr>
-            <td>Image Preview</td>
+            <td>Matched Image Preview</td>
             <td>No preview available.</td>
          </tr>
          {% endif %}
          <tr class="similarity">
-            <td>Image Name</td>
+            <td>Matched Image Name</td>
             <td>{{ image_name }}</td>
          </tr>
          <tr class="similarity">
-            <td>Image Similarity</td>
+            <td>Matched Image Similarity</td>
             <td>{{ similarity }}</td>
          </tr>
       </tbody>
