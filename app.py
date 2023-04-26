@@ -26,8 +26,9 @@ def result():
         single_file[0].save(modules.UPLOAD_FOLDER+single_file[0].filename)
         modules.add_image_paths_from_directory(modules.UPLOAD_FOLDER)
         orb_result = modules.orb_sim(images, modules.UPLOAD_FOLDER+single_file[0].filename)
+        modules.convert_tiff(images[orb_result['Image']])
         if(orb_result != -1):
-            return render_template("hashes.html", image_name=images[orb_result['Image']].split('/')[-1], image=images[orb_result['Image']], similarity=orb_result['Value'], title="Results", type=pathlib.Path(images[orb_result['Image']]).suffix)
+            return render_template("hashes.html", image_name=images[orb_result['Image']].split('/')[-1], similarity=orb_result['Value'], title="Results")
 
 if __name__ =='__main__':  
     app.run(debug = True)

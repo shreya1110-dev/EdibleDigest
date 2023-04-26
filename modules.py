@@ -50,3 +50,12 @@ def orb_sim(images, file):
           "Image":max_similarity_img,
           "Value":max_similarity_val
         }
+
+def convert_tiff(image):
+    tiff_image = cv2.imread(image)
+    # Convert the image to JPEG format with a specific quality
+    quality = 80 # Set the quality of the output image (0-100)
+    params = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
+    
+    cv2.imwrite(UPLOAD_FOLDER+'result.jpg', tiff_image, params)
+  
