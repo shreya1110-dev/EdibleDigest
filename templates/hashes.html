@@ -22,7 +22,12 @@
          {% endif %}
          <tr class="similarity">
             <td>Matched Image Name</td>
-            <td>{{ image_name }}</td>
+            <td>
+               {{ image_name }}
+               {% if similarity>0.7 %}
+                  &nbsp;&nbsp;<i class="fa fa-check" style="color: #00e639;"></i>
+               {% endif %}
+            </td>
          </tr>
          <tr class="similarity">
             <td>Matched Image Similarity</td>
