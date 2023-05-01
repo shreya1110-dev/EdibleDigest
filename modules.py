@@ -1,7 +1,8 @@
 import cv2
 import os
 
-UPLOAD_FOLDER = 'static/images/'
+DATABASE_FOLDER = 'static/images/'
+RESULT_FOLDER = 'static/result/'
 
 def add_image_paths_from_directory(directory):
   images = []
@@ -19,18 +20,16 @@ def grayscale_images(images):
     image_grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     grayscale.append(image_grayscale)
   return grayscale
-
+     
 def orb_sim(images, file):
-    f = grayscale_images([file])[0]
-    gs_images = grayscale_images(images)
     max_similarity_val = -1
     max_similarity_img = -1
-    for i in range (0,len(gs_images)):
+    for i in range (0,len(images)):
       orb = cv2.ORB_create()
 
       # detect keypoints and descriptors
-      kp_a, desc_a = orb.detectAndCompute(gs_images[i], None)
-      kp_b, desc_b = orb.detectAndCompute(f, None)
+      kp_a, desc_a = orb.detectAndCompute(images[i], None)
+      kp_b, desc_b = orb.detectAndCompute(file, None)
 
       # define the bruteforce matcher object
       bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
@@ -51,11 +50,9 @@ def orb_sim(images, file):
           "Value":max_similarity_val
         }
 
-def convert_tiff(image):
+def convert_tiff(image, name):
     tiff_image = cv2.imread(image)
-    # Convert the image to JPEG format with a specific quality
-    quality = 80 # Set the quality of the output image (0-100)
+    quality = 80 
     params = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
-    
-    cv2.imwrite(UPLOAD_FOLDER+'result.jpg', tiff_image, params)
+    cv2.imwrite(RESULT_FOLDER + name + '.jpg', tiff_image, params)
   
