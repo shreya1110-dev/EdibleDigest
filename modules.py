@@ -1,7 +1,7 @@
 import cv2
 import os
 
-DATABASE_FOLDER = 'static/images/'
+DATABASE_FOLDER = 'static/images/database'
 RESULT_FOLDER = 'static/result/'
 
 def add_image_paths_from_directory(directory):

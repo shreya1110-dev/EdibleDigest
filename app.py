@@ -27,7 +27,7 @@ def result():
         modules.convert_tiff(modules.RESULT_FOLDER+file[0].filename, 'right')
         print(orb_result['Value'])
         if(orb_result != -1):
-            return render_template("hashes.html", similarity=similarity, title="Results", left_image_name = database_images[orb_result['Image']].split('/')[-1], right_image_name = file[0].filename)
+            return render_template("hashes.html", similarity=similarity, title="Results", left_image_name = database_images[orb_result['Image']].split('\\')[-1], right_image_name = file[0].filename)
 
 if __name__ =='__main__':  
     app.run(debug = True)
