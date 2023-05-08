@@ -17,7 +17,7 @@ def result():
             os.remove(modules.RESULT_FOLDER + file)
         file = request.files.getlist("single-file-inp")
         if file[0].filename == '':
-            return render_template("index.html", empty="No image uploaded", title="Results")
+            return render_template("index.html", empty="No image uploaded", title="Result")
         file[0].save(modules.RESULT_FOLDER+file[0].filename)
         grayscale_file = modules.grayscale_images([modules.RESULT_FOLDER+file[0].filename])
         database_gs_images = modules.grayscale_images(database_images)
@@ -27,7 +27,7 @@ def result():
         modules.convert_tiff(modules.RESULT_FOLDER+file[0].filename, 'right')
         print(orb_result['Value'])
         if(orb_result != -1):
-            return render_template("hashes.html", similarity=similarity, title="Results", left_image_name = database_images[orb_result['Image']].split('\\')[-1], right_image_name = file[0].filename)
+            return render_template("hashes.html", similarity=similarity, title="Result", left_image_name = database_images[orb_result['Image']].split('\\')[-1], right_image_name = file[0].filename)
 
 if __name__ =='__main__':  
     app.run(debug = True)
