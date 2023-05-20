@@ -8,9 +8,7 @@ def add_image_paths_from_directory(directory):
   images = []
   for filename in os.listdir(directory):
       f = os.path.join(directory, filename)
-      # checking if it is a file
-      if os.path.isfile(f):
-          images.append(f)
+      images.append(f)
   return images
 
 def grayscale_images(images):
